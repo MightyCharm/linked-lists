@@ -71,6 +71,14 @@ function linkedList() {
       return curr.value;
     },
 
+    pop() {
+      if (!head) return undefined;
+      // at least one node in list
+      let temp = head.value;
+      head = head.nextNode;
+      return temp;
+    },
+
     toString() {
       if (!head) {
         return "";
@@ -88,25 +96,29 @@ function linkedList() {
 }
 
 const list = linkedList();
+console.log(list.pop());
+
 list.append("dog");
+console.log(list.pop());
+console.log(list.toString());
+console.log(list.size());
+
 list.append("cat");
 list.append("bird");
 list.append("worm");
+console.log(list.pop());
+console.log(list.toString());
+console.log(list.size());
 
-console.log(list.at(0));
-console.log(list.at(1));
-console.log(list.at(2));
-console.log(list.at(3));
+console.log(list.head());
 
-console.log(list.at(4));
-console.log(list.at(99));
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.pop());
+console.log(list.size());
 
-console.log(list.at(-1));
-
-const empty = linkedList();
-console.log(empty.at(0));
-
-const single = linkedList();
-single.append("shark");
-console.log(single.at(0));
-console.log(single.at(1));
+const list2 = linkedList();
+list2.append("dog");
+list2.prepend("shark");
+console.log(list2.pop());
+console.log(list2.toString());
