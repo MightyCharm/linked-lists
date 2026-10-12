@@ -58,6 +58,19 @@ function linkedList() {
       return curr.value;
     },
 
+    at(index) {
+      if (!head) return undefined;
+      if (index === 0) return head.value;
+      let curr = head;
+      let count = 0;
+      while (curr.nextNode !== null && count < index) {
+        curr = curr.nextNode;
+        count++;
+      }
+      if (count !== index) return undefined;
+      return curr.value;
+    },
+
     toString() {
       if (!head) {
         return "";
@@ -75,27 +88,25 @@ function linkedList() {
 }
 
 const list = linkedList();
-
-console.log(list.tail());
-
 list.append("dog");
-console.log(list.tail());
-
 list.append("cat");
 list.append("bird");
-console.log(list.tail());
-
-list.prepend("shark");
-console.log(list.tail());
-
 list.append("worm");
-console.log(list.tail());
 
-const list2 = linkedList();
-list2.prepend("snake");
-list2.prepend("frog");
+console.log(list.at(0));
+console.log(list.at(1));
+console.log(list.at(2));
+console.log(list.at(3));
 
-console.log(list2.tail());
+console.log(list.at(4));
+console.log(list.at(99));
 
-list2.append("shark");
-console.log(list2.tail());
+console.log(list.at(-1));
+
+const empty = linkedList();
+console.log(empty.at(0));
+
+const single = linkedList();
+single.append("shark");
+console.log(single.at(0));
+console.log(single.at(1));
