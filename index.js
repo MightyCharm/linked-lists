@@ -44,6 +44,11 @@ function linkedList() {
       return count;
     },
 
+    head() {
+      if (!head) return undefined;
+      return head.value;
+    },
+
     toString() {
       if (!head) {
         return "";
@@ -62,28 +67,20 @@ function linkedList() {
 
 const list = linkedList();
 
-console.log(list.size());
+console.log(list.head());
 
 list.append("dog");
-console.log(list.size());
+console.log(list.head());
 
 list.append("cat");
 list.append("bird");
-console.log(list.size());
+console.log(list.head());
 
 list.prepend("shark");
-console.log(list.size());
+console.log(list.head());
 
-list.prepend("frog");
-console.log(list.size());
+list.prepend("shark");
+console.log(list.head());
 
-console.log(list.toString());
-
-const list2 = linkedList();
-list2.prepend("worm");
-list2.prepend("snake");
-console.log(list2.size());
-
-list2.append("shark");
-console.log(list2.size());
-console.log(list2.toString());
+list.append("worm");
+console.log(list.head());
