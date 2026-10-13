@@ -79,17 +79,30 @@ function linkedList() {
       return temp;
     },
 
-    contains(target) {
+    contains(value) {
       if (!head) return false;
       let curr = head;
       while (curr.nextNode !== null) {
-        if (curr.value === target) {
+        if (curr.value === value) {
           break;
         }
         curr = curr.nextNode;
       }
-      if (curr.value === target) return true;
+      if (curr.value === value) return true;
       return false;
+    },
+
+    findIndex(value) {
+      if (!head) return -1;
+      let curr = head;
+      let index = 0;
+      while (curr.nextNode !== null) {
+        if (curr.value === value) break;
+        curr = curr.nextNode;
+        index++;
+      }
+      if (curr.value === value) return index;
+      return -1;
     },
 
     toString() {
@@ -110,32 +123,35 @@ function linkedList() {
 
 const list = linkedList();
 
-console.log(list.contains("dog"));
-
 list.append("dog");
 list.append("cat");
 list.append("bird");
 list.append("worm");
 list.append("shark");
-console.log(list.contains("dog"));
 
-console.log(list.contains("bird"));
+console.log(list.findIndex("dog"));
 
-console.log(list.contains("shark"));
+console.log(list.findIndex("bird"));
 
-console.log(list.contains("snake"));
+console.log(list.findIndex("shark"));
 
-list.append(42);
-console.log(list.contains(42));
-console.log(list.contains("42"));
-
-list.append(null);
-console.log(list.contains(null));
+console.log(list.findIndex("snake"));
 
 list.append("dog");
-console.log(list.contains("dog"));
+console.log(list.findIndex("dog"));
+
+list.append(42);
+console.log(list.findIndex(42));
+console.log(list.findIndex("42"));
+
+list.append(null);
+console.log(list.findIndex(null));
+
+const empty = linkedList();
+console.log(empty.findIndex("dog"));
 
 const single = linkedList();
 single.append("shark");
-console.log(single.contains("shark"));
-console.log(single.contains("dog"));
+console.log(single.findIndex("shark"));
+
+console.log(single.findIndex("dog"));
