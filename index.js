@@ -118,40 +118,90 @@ function linkedList() {
       output += curr.nextNode;
       return output;
     },
+
+    insertAt(index, ...values) {
+      if (index < 0) {
+        throw new RangeError("Index must be 0 or higher.");
+      }
+      if (index > this.size()) {
+        throw new RangeError("Index is too high.");
+      }
+      // case: index is 0 and we have or don't have a head already
+      if (index === 0) {
+        if (!head) {
+          const newNode = node(values[0]);
+          head = newNode;
+          let curr = head;
+          for (let i = 1; i < values.length; i++) {
+            const newNode = node(values[i]);
+            curr.nextNode = newNode;
+            curr = curr.nextNode;
+          }
+        } else {
+          let curr = head;
+          for (let i = values.length - 1; i >= 0; i--) {
+            const newNode = node(values[i]);
+            newNode.nextNode = curr;
+
+            curr = newNode;
+            head = curr;
+          }
+        }
+        return;
+      }
+      // case: index bigger than 0
+      let prev = null;
+      let curr = head;
+      let count = 0;
+      while (count < index && count < this.size()) {
+        prev = curr;
+        curr = curr.nextNode;
+        count++;
+      }
+      for (let i = values.length - 1; i >= 0; i--) {
+        const newNode = node(values[i]);
+        newNode.nextNode = curr;
+        prev.nextNode = newNode;
+        curr = newNode;
+      }
+    },
   };
 }
 
 const list = linkedList();
+list.append("A");
+list.append("B");
+list.append("C");
+list.append("D");
 
-list.append("dog");
-list.append("cat");
-list.append("bird");
-list.append("worm");
-list.append("shark");
+list.insertAt(0, "X");
+console.log(list.toString());
 
-console.log(list.findIndex("dog"));
+const list2 = linkedList();
+list2.append("A");
+list2.append("B");
+list2.append("C");
+list2.append("D");
+list2.insertAt(2, "X", "Y");
+console.log(list2.toString());
 
-console.log(list.findIndex("bird"));
+const list3 = linkedList();
+list3.append("A");
+list3.append("B");
+list3.insertAt(2, "C", "D");
+console.log(list3.toString());
 
-console.log(list.findIndex("shark"));
+const list4 = linkedList();
+list4.append("A");
+list4.append("D");
+list4.insertAt(1, "B", "C");
+console.log(list4.toString());
 
-console.log(list.findIndex("snake"));
+const lastList = linkedList();
+lastList.append(1);
+lastList.append(2);
+lastList.append(3);
+console.log(lastList.toString());
 
-list.append("dog");
-console.log(list.findIndex("dog"));
-
-list.append(42);
-console.log(list.findIndex(42));
-console.log(list.findIndex("42"));
-
-list.append(null);
-console.log(list.findIndex(null));
-
-const empty = linkedList();
-console.log(empty.findIndex("dog"));
-
-const single = linkedList();
-single.append("shark");
-console.log(single.findIndex("shark"));
-
-console.log(single.findIndex("dog"));
+lastList.insertAt(1, 10, 11);
+console.log(lastList.toString());
