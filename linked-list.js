@@ -10,7 +10,6 @@ function linkedList() {
   return {
     append(value) {
       const newNode = node(value);
-
       if (!head) {
         head = newNode;
         return;
@@ -73,7 +72,6 @@ function linkedList() {
 
     pop() {
       if (!head) return undefined;
-      // at least one node in list
       let temp = head.value;
       head = head.nextNode;
       return temp;
@@ -126,7 +124,7 @@ function linkedList() {
       if (index > this.size()) {
         throw new RangeError("Index is too high.");
       }
-      // case: index is 0 and we have or don't have a head already
+      // case: index is 0, with or without existing head
       if (index === 0) {
         if (!head) {
           const newNode = node(values[0]);
@@ -149,7 +147,7 @@ function linkedList() {
         }
         return;
       }
-      // case: index bigger than 0
+      // case: index greater than 0
       let prev = null;
       let curr = head;
       let count = 0;
@@ -188,28 +186,10 @@ function linkedList() {
         curr = curr.nextNode;
         count++;
       }
-      // curr is node to remove
       next = curr.nextNode;
       prev.nextNode = next;
     },
   };
 }
 
-const list = linkedList();
-list.append("A");
-list.append("B");
-list.append("C");
-list.append("D");
-
-list.removeAt(1);
-console.log(list.toString());
-
-list.removeAt(0);
-console.log(list.toString());
-
-list.removeAt(1);
-console.log(list.toString());
-
-list.removeAt(0);
-console.log(list.toString());
-console.log(list.size());
+export { linkedList };
