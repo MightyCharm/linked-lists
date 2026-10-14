@@ -165,6 +165,33 @@ function linkedList() {
         curr = newNode;
       }
     },
+
+    removeAt(index) {
+      if (index < 0) {
+        throw new RangeError("Index must be 0 or higher.");
+      }
+      if (index >= this.size()) {
+        throw new RangeError("Index is too high.");
+      }
+      if (index === 0) {
+        if (head) {
+          head = head.nextNode;
+        }
+        return;
+      }
+      let prev = null;
+      let curr = head;
+      let next = null;
+      let count = 0;
+      while (count < index && count < this.size()) {
+        prev = curr;
+        curr = curr.nextNode;
+        count++;
+      }
+      // curr is node to remove
+      next = curr.nextNode;
+      prev.nextNode = next;
+    },
   };
 }
 
@@ -174,34 +201,15 @@ list.append("B");
 list.append("C");
 list.append("D");
 
-list.insertAt(0, "X");
+list.removeAt(1);
 console.log(list.toString());
 
-const list2 = linkedList();
-list2.append("A");
-list2.append("B");
-list2.append("C");
-list2.append("D");
-list2.insertAt(2, "X", "Y");
-console.log(list2.toString());
+list.removeAt(0);
+console.log(list.toString());
 
-const list3 = linkedList();
-list3.append("A");
-list3.append("B");
-list3.insertAt(2, "C", "D");
-console.log(list3.toString());
+list.removeAt(1);
+console.log(list.toString());
 
-const list4 = linkedList();
-list4.append("A");
-list4.append("D");
-list4.insertAt(1, "B", "C");
-console.log(list4.toString());
-
-const lastList = linkedList();
-lastList.append(1);
-lastList.append(2);
-lastList.append(3);
-console.log(lastList.toString());
-
-lastList.insertAt(1, 10, 11);
-console.log(lastList.toString());
+list.removeAt(0);
+console.log(list.toString());
+console.log(list.size());
